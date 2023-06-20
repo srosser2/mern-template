@@ -7,7 +7,7 @@ const App: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
 
     useEffect(() => {
-        fetch('api/items',
+        fetch('api/todos',
             {
                 method: 'GET'
             })
@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
     const addTodoHandler = (text: string) => {
         const newTodo = new Todo(text, text, false);
-        fetch('api/items',
+        fetch('api/todos',
             {
                 method: 'POST',
                 headers: {
@@ -37,13 +37,13 @@ const App: React.FC = () => {
     };
 
     const deleteTodoHandler = (id: string) => {
-        fetch(`/api/items/${id}`, { method: 'DELETE' })
+        fetch(`/api/todos/${id}`, { method: 'DELETE' })
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
 
     const updateTodoHandler = (id: string, todo: Todo) => {
-        fetch(`/api/items/${id}`, {
+        fetch(`/api/todos/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
