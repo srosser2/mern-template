@@ -32,6 +32,7 @@ export async function updateTodo(req: Request<ParamsWithId, ITodo>, res: Respons
 export async function deleteTodo(req: Request<ParamsWithId, ITodo>, res: Response, next: NextFunction) {
     try {
         await Todo.findByIdAndRemove(req.params.id);
+        res.send({});
     } catch (err) {
         next(err);
     }
