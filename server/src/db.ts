@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
 export default async function initDb() {
-    mongoose.connect('mongodb://mongo:27017/mern').then(res => res).catch(err => err);
+    const {
+        MONGO_USERNAME,
+        MONGO_PORT,
+        MONGO_DBNAME
+    } = process.env;
+
+    const MONGO_URI = `mongodb://${MONGO_USERNAME}:${MONGO_PORT}/${MONGO_DBNAME}`;
+    mongoose.connect(MONGO_URI).then(res => res).catch(err => err);
 }
