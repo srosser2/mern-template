@@ -13,7 +13,12 @@ export async function getTodos(req: Request, res: Response, next: NextFunction) 
 
 export async function createTodo(req: Request<{}, ITodo>, res: Response, next: NextFunction) {
     try {
-        const todo = await new Todo({ name: req.body.name, completed: req.body.completed }).save();
+        const todo = await new Todo({
+            name: req.body.name,
+            description: req.body.description,
+            dueDate: req.body.dueDate,
+            completed: req.body.completed
+        }).save();
         res.send(todo);
     } catch (err) {
         next(err);
