@@ -7,6 +7,10 @@ const App: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
 
     useEffect(() => {
+        getTodosHandler();
+    }, []);
+
+    const getTodosHandler = () => {
         fetch('api/todos',
             {
                 method: 'GET'
@@ -16,29 +20,28 @@ const App: React.FC = () => {
                 setTodos(res);
             })
             .catch(err => console.log(err));
-    }, [todos]);
+    };
 
-    const addTodoHandler = (text: string) => {
-        const newTodo = new Todo(text, text, false);
+    const addTodoHandler = (text: string, description?: string) => {
         fetch('api/todos',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name: text })
+                body: JSON.stringify({ name: text, description })
             })
-            .then(res => console.log(res))
+            .then(() => {
+                getTodosHandler();
+            })
             .catch(err => console.log(err));
-        setTodos((prevTodos) => {
-            return prevTodos.concat(newTodo);
-        });
-        return;
     };
 
     const deleteTodoHandler = (id: string) => {
         fetch(`/api/todos/${id}`, { method: 'DELETE' })
-            .then(res => console.log(res))
+            .then(() => {
+                getTodosHandler();
+            })
             .catch(err => console.log(err));
     };
 
@@ -50,14 +53,20 @@ const App: React.FC = () => {
             },
             body: JSON.stringify(todo)
         })
-            .then(res => console.log(res))
+            .then(() => {
+                getTodosHandler();
+            })
             .catch(err => console.log(err));
     };
 
-    return (<>
-        <NewTodo onAddTodo={addTodoHandler} />
-        <TodoList items={todos} deleteTodoHandler={deleteTodoHandler} updateTodoHandler={updateTodoHandler} />
-    </>);
+    return <>
+        <div className='container'>
+            <TodoList items={todos} deleteTodoHandler={deleteTodoHandler} updateTodoHandler={updateTodoHandler} />
+        </div>
+        <div className='container'>
+            <NewTodo onAddTodo={addTodoHandler} />
+        </div>
+    </>;
 };
 
 export default App;

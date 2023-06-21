@@ -6,10 +6,18 @@ const Todo: React.FC<{
         deleteTodoHandler: (id: string)=> void,
         updateTodoHandler: (id: string, todo: TodoModel) => void
     }> = ({ todo, deleteTodoHandler, updateTodoHandler }) => {
-        return <li>
-            <div>{todo.name}</div>
-            <button onClick={() => deleteTodoHandler(todo._id)}>Delete</button>
-            <input type="checkbox" checked={todo.completed} onChange={() => updateTodoHandler(todo._id, { ...todo, completed: !todo.completed })} />
+        return <li className='todo' id={todo._id}>
+            <span
+                className={['material-symbols-outlined todo-completed', todo.completed ? 'completed' : ''].join(' ')}
+                onClick={() => updateTodoHandler(todo._id, { ...todo, completed: !todo.completed })}
+            >
+                { todo.completed ? 'check_circle' : 'radio_button_unchecked' }
+            </span>
+            <div className='todo-details'>
+                <div className='todo-name'>{todo.name}</div>
+                <div className='todo-description'>{todo.description}</div>
+            </div>
+            <span className="material-symbols-outlined todo-delete" onClick={() => deleteTodoHandler(todo._id)}>delete</span>
         </li>;
     };
 

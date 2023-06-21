@@ -7,11 +7,12 @@ const TodoList: React.FC<{
         deleteTodoHandler: (id: string) => void,
         updateTodoHandler: (id: string, todo: TodoModel) => void
     }> = ({ items, deleteTodoHandler, updateTodoHandler }) => {
-        return <>
+        return <div className='todo-list-container'>
+            <div className='todo-list-header'>Todos</div>
             <ul>
                 { items.map((item: TodoModel, i: number) => <Todo key={i} todo={item} deleteTodoHandler={deleteTodoHandler} updateTodoHandler={updateTodoHandler} />) }
             </ul>
-        </>;
+        </div>;
     };
 
 export default TodoList;
