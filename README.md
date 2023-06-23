@@ -4,6 +4,8 @@ This repo provides a quick template for a MongoDB, Express, React and Node.js ap
 ## Installation
 Clone the repo and run `docker compose up` to build and run the containers for Node.js and MongoDB.
 
+In the server directory, create an .env file based on example.env.
+
 Change directory to client and run `npm install` to install frontend depenedencies.
 
 Run `npm start` to start up frontend.
